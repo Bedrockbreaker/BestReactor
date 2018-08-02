@@ -118,6 +118,7 @@
 	//Clear cookies (at least I think it's cookies), and restart the script.
 	$("#simulate").click(function() {getRF().then(function(rf) {localStorage.removeItem("highestRF"); bot(rf)})});
 
+	//Doesn't seem to ever run.. But also seems to prevent the "too fast" errors from appearing.
 	getRF().then(function(rf) {
 		bot(rf);
 		setInterval(function() {
