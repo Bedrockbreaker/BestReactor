@@ -1,6 +1,6 @@
 // ==UserScript==
 // @name         BestReactor
-// @namespace    http://tampermonkey.net/
+// @namespace    https://github.com/Bedrockbreaker/BestReactor
 // @version      0.2
 // @description  Tries to find the "best" big reactor with a given size
 // @author       Bedrockbreaker
@@ -10,7 +10,7 @@
 // @require		 https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js
 // ==/UserScript==
 
-// Note: This program assumes that the "best" reactor is rotationally symmetric. This helps to drastically* reduce the number of computations, but may mean that the "best" reactor actually isn't the best.
+// Note: This program assumes that the "best" reactor is 4-fold rotationally symmetric. This helps to drastically* reduce the number of computations, but may mean that the "best" reactor actually isn't the best.
 // * 2^(length*width) vs 2^(Math.ceil(length/2)*Math.ceil(width/2)) max runs to get the best reactor.
 
 (function($) {
@@ -19,7 +19,7 @@
 		return await new Promise(function(resolve, reject) {
 			let reCheck = setInterval(function() {
 				if (typeof document.getElementById("passiveCoolingOutput") !== "undefined") {
-					let reactorRF = Number(document.getElementById("passiveCoolingOutput").getElementsByClassName("value")[0].innerHTML.split(",").join("")); //Remove commas from a number
+					let reactorRF = Number(document.getElementById("passiveCoolingOutput").getElementsByClassName("value")[0].innerHTML.split(",").join("")); //Extract the RF from the HTML.
 					if (!(Number.isNaN(reactorRF)) && typeof(reactorRF) === "number") {
 						clearInterval(reCheck);
 						resolve(reactorRF);
@@ -65,7 +65,6 @@
 		//Push the reactor to the next iteration, before mirroring it to the corners.
 		let reactorString = ((parseInt(reactorMap.map(function(row) {return row.reverse().join("")}).reverse().join(""), 2) + 1) >>> 0).toString(2).split("");
 		//Pad with extra 0's
-
 		for (let i = 0; i < (Math.ceil(length / 2) * Math.ceil(width / 2)); i++) {
 			if (!reactorString[i]) {
 				reactorString.unshift("0");
@@ -96,6 +95,7 @@
 			return n;
 		}).join("");
 	}
+
 	//Takes a string, and returns a length of characters until an "&" appears.
 	let splitURL = function(stringToExtract) {
 		let extracted = window.location.href.slice(window.location.href.indexOf(stringToExtract) + stringToExtract.length);
@@ -115,7 +115,7 @@
 		return originalString.replace(reg, insertionString);
 	}
 
-	//Clear cookies, and restart the script.
+	//Clear cookies (at least I think it's cookies), and restart the script.
 	$("#simulate").click(function() {getRF().then(function(rf) {localStorage.removeItem("highestRF"); bot(rf)})});
 
 	getRF().then(function(rf) {
