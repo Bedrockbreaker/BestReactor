@@ -14,7 +14,7 @@ Reactor Simulator site (https://br.sidoh.org/) is made by sidoh: https://github.
 4. Place 1 reactor control rod in the upper-left corner.
 5. The script should start automatically. And when it's done, it should stop automatically.
 6. Note! Occasionally, the website may say "Too many requests. Please slow down." This will cause the bot to stop functioning. Simply refresh the page to get the bot running again. Don't worry! No progress has been lost towards finding the best reactor. If you are running this bot for several hours, I would recommend an auto clicker on the refresh button of your browser clicking every couple of seconds, just to be safe.
-7. Note #2! This script uses cookies! Trying to run the bot in cognito mode will make the bot never store the best reactor in cookies, and therefore, never actually find the best reactor.
+7. Note #2! This script uses cookies! Trying to run the bot in incognito mode will make the bot never store the best reactor in cookies, and therefore, never actually find the best reactor.
 
 ## How to view the current best reactor:
 1. Open the developer tools, and click on "Console". Make sure to check "Preserve log".
